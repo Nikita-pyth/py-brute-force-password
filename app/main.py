@@ -31,7 +31,7 @@ def check_password_range(start: int, end: int) -> list[tuple[str, str]]:
 def brute_force_password() -> None:
     results = []
     chunk_size = 1_000_000
-    with ProcessPoolExecutor(multiprocessing.cpu_count() - 1) as executor:
+    with ProcessPoolExecutor(max(1, multiprocessing.cpu_count() - 1)) as executor:
         futures = [
             executor.submit(check_password_range, start, start + chunk_size)
             for start in range(0, 100_000_000, chunk_size)
